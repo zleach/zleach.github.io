@@ -21,6 +21,14 @@
                     precision : 1,
                 }).on('keyup keydown ',calculate)
                 
+                var presetPrice = getParameterByName('price')
+                if(presetPrice){
+                    console.log(presetPrice)
+                	$('#price').val(accounting.formatMoney(presetPrice,{
+                        precision : 0,
+                	}));
+                }
+                
                 calculate();
             });
             
