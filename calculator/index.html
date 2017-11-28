@@ -34,7 +34,9 @@
                 var price = parseInt($('#price').val().replace("$", "").replace(re, ""));
                 
                 // Diff
-                var difference = Math.abs(vaLoanAmount-price);
+                var difference = price-vaLoanAmount;
+                if(difference<=0) difference = 0;
+                
                 $('#difference').text(accounting.formatMoney(difference));
 
                 // DP                
@@ -62,7 +64,7 @@
             <form class="margin-top-lg">
                 <div class="form-group form-group-lg">
                     <label for="price">Home Price</label>
-                    <input type="text" class="form-control text-right number" id="price" placeholder="636,000" value="$650,000">
+                    <input type="text" class="form-control text-right number" id="price" placeholder="636,000" value="$100">
                 </div>
 <!--
                 <div class="form-group">
