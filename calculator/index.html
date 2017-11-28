@@ -23,7 +23,6 @@
                 
                 var presetPrice = getParameterByName('price')
                 if(presetPrice){
-                    console.log(presetPrice)
                 	$('#price').val(accounting.formatMoney(presetPrice,{
                         precision : 0,
                 	}));
@@ -80,7 +79,7 @@
             <form class="margin-top-lg">
                 <div class="form-group form-group-lg">
                     <label for="price">Home Price</label>
-                    <input type="text" class="form-control text-right number" id="price" placeholder="636,000" value="$650,000">
+                    <input type="text" class="form-control text-right number" id="price" placeholder="$636,000" value="$650,000">
                 </div>
 <!--
                 <div class="form-group">
