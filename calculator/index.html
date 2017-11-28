@@ -1,0 +1,102 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Z+M Mortgage Calculator</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="maximum-scale=1">
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script>
+            $( document ).ready(function() {
+                $('#price').maskMoney({
+                    prefix : "$",
+                    precision : 0,
+                }).on('keyup keydown change blur',calculate)
+                $('#interest').maskMoney({
+                    suffix : "%",
+                    precision : 1,
+                }).on('keyup keydown ',calculate)
+                
+                calculate();
+            });
+            
+            function calculate(){
+                var vaLoanAmount = 636000;
+                
+                
+                console.log("Calc...");
+                var re = new RegExp(',', 'g');
+                var price = parseInt($('#price').val().replace("$", "").replace(re, ""));
+                
+                // Diff
+                var difference = Math.abs(vaLoanAmount-price);
+                $('#difference').text(accounting.formatMoney(difference));
+
+                // DP                
+                var downPayment = difference*.25
+                $('#downpayment').text(accounting.formatMoney(downPayment));
+            
+                // Closing Costs
+                var closingCost = price*.025
+                $('#closingcost').text(accounting.formatMoney(closingCost));
+
+                // Total
+                var total = closingCost+downPayment
+                $('#total').text(accounting.formatMoney(total));
+
+            
+            }
+            
+        </script>
+
+    </head>
+    <body>
+        <div class="container">
+            <h3>Zach &amp; Maddie</h3>
+            <p class="text-muted">Home Loan Calculator</p>
+            <form class="margin-top-lg">
+                <div class="form-group form-group-lg">
+                    <label for="price">Home Price</label>
+                    <input type="text" class="form-control text-right number" id="price" placeholder="636,000" value="$650,000">
+                </div>
+<!--
+                <div class="form-group">
+                    <label for="interest">Interest Rate</label>
+                    <input type="text"  class="form-control text-right" id="interest" placeholder="3.5%" value="3.5%">
+                </div>
+-->
+                <hr>
+                <dl>
+                    <dt>VA Loan Difference</dt>
+                    <dd class="text-right number" id="difference"></dd>
+                </dl>
+                <dl>
+                    <dt>Downpayment Needed (25%)</dt>
+                    <dd class="text-right number" id="downpayment"></dd>
+                </dl>
+                <dl>
+                    <dt>Closing Costs (2.5%)</dt>
+                    <dd class="text-right number" id="closingcost"></dd>
+                </dl>
+                <dl>
+                    <dt>Total Due</dt>
+                    <dd class="text-right number" id="total"></dd>
+                </dl>
+                <hr>
+
+
+            </form>
+        </div>        
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/vendor/accounting.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
