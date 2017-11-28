@@ -89,3 +89,16 @@
 .number {
     font-family: "Menlo";
 }
+
+.rangeslider,
+.rangeslider__fill {
+  transition: background 0.3s;
+}
+
+.rangeslider--is-lowest-value {
+  background-color: white;
+}
+
+.rangeslider--is-highest-value .rangeslider__fill {
+  background-color: red;
+}
