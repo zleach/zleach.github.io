@@ -129,6 +129,7 @@
     </head>
     <body>
         <div class="container">
+            <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <h3>Zach &amp; Maddie</h3>
             <p class="text-muted">Home Loan Calculator</p>
             <form class="margin-top-lg">
@@ -151,7 +152,7 @@
                 <div class="form-group">
                     <label for="interest">Closing Cost %</label>
                     <input type="text"  class="form-control text-right number" id="closing" placeholder="2.5%" value="2.5%">
-                    <p class="help-block">As percentage of home price</p>
+                    <p class="help-block text-sm">As percentage of home price</p>
                 </div>
                 <hr>
                 <h4>Upfront Costs</h4><br>
@@ -160,12 +161,18 @@
                     <dd class="text-right number" id="difference"></dd>
                 </dl>
                 <dl>
-                    <dt>Downpayment Needed (25% of VA loan difference)</dt>
-                    <dd class="text-right number" id="downpayment"></dd>
+                    <dt>Downpayment Needed</dt>
+                    <dd class="text-right">
+                        <div class="pull-left text-muted">25% of VA loan difference</div>
+                        <span class="number" id="downpayment"></span>                    
+                    </dd>
                 </dl>
                 <dl>
-                    <dt>Closing Cost (<span id="closingcostoutput"></span> of home price)</dt>
-                    <dd class="text-right number" id="closingcost"></dd>
+                    <dt>Closing Cost</dt>
+                    <dd class="text-right">
+                        <div class="pull-left text-muted"><span id="closingcostoutput"></span> of home price</div>
+                        <span class="number" id="closingcost"></span>                    
+                    </dd>
                 </dl>
                 <dl>
                     <dt>Total Due at Signing</dt>
@@ -178,24 +185,31 @@
                     <dd class="text-right number"><span id="mortgage"></span></dd>
                 </dl>
                 <dl>
-                    <dt>Monthly Property Tax (1.17% / 12 months)</dt>
-                    <dd class="text-right number"><span id="taxamount"></span></dd>
+                    <dt>Monthly Property Tax</dt>
+                    <dd class="text-right">
+                        <div class="pull-left text-muted">1.17% / 12 months</div>
+                        <span class="number" id="taxamount"></span>
+                    </dd>
                 </dl>
                 <dl>
-                    <dt>Homeowner's Insurance (0.35% / 12 months)</dt>
-                    <dd class="text-right number"><span id="insurance"></span></dd>
+                    <dt>Homeowner's Insurance</dt>
+                    <dd class="text-right">
+                        <div class="pull-left text-muted">0.35% / 12 months</div>
+                        <span class="number" id="insurance"></span>
+                    </dd>
                 </dl>
                 <dl>
                     <dt>Monthly Total</dt>
                     <dd class="text-right number"><b id="payment"></b></dd>
                 </dl>
-
-
+                
+            </div>
             </form>
         </div>        
         
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js"></script>
+        <script src="js/vendor/jquery.animateNumber.js"></script>
         <script src="js/vendor/rangeslider.min.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/vendor/accounting.min.js"></script>
