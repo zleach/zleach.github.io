@@ -44,9 +44,17 @@
                     prefix : "$",
                     precision : 0,
                 }).on('keyup keydown change blur',calculate)
+                
                 $('#interest').maskMoney({
                     suffix : "%",
+                    precision : 2,
+                    allowZero : true,
+                }).on('keyup keydown ',calculate)
+                
+                $('#closing').maskMoney({
+                    suffix : "%",
                     precision : 1,
+                    allowZero : true,
                 }).on('keyup keydown ',calculate)
                 
                 var presetPrice = getParameterByName('price')
@@ -79,8 +87,9 @@
                 $('#downpayment').text(accounting.formatMoney(downPayment));
             
                 // Closing Costs
-                var closingCost = price*.025
+                var closingCost = price*(parseFloat($('#closing').val().replace("%", ""))/100)
                 $('#closingcost').text(accounting.formatMoney(closingCost));
+                $('#closingcostoutput').text($('#closing').val());
 
                 // Total
                 var total = closingCost+downPayment
@@ -92,7 +101,15 @@
                 var term = 30*12;
                 
             	var payment = amt*(apr * Math.pow((1 + apr), term))/(Math.pow((1 + apr), term) - 1);
-                $('#payment').text(accounting.formatMoney(payment));
+                $('#mortgage').text(accounting.formatMoney(payment))
+
+            	var taxAmount = price*(1.1723/100)/12
+                $('#taxamount').text(accounting.formatMoney(taxAmount));
+
+            	var insuranceAmount = price*(0.35/100)/12
+                $('#insurance').text(accounting.formatMoney(insuranceAmount));
+            	
+                $('#payment').text(accounting.formatMoney(payment+taxAmount+insuranceAmount));
 
             }
 
@@ -131,27 +148,46 @@
                     <label for="interest">Interest Rate APR%</label>
                     <input type="text"  class="form-control text-right number" id="interest" placeholder="3.75%" value="3.75%">
                 </div>
+                <div class="form-group">
+                    <label for="interest">Closing Cost %</label>
+                    <input type="text"  class="form-control text-right number" id="closing" placeholder="2.5%" value="2.5%">
+                    <p class="help-block">As percentage of home price</p>
+                </div>
                 <hr>
+                <h4>Upfront Costs</h4><br>
                 <dl>
                     <dt>VA Loan Difference</dt>
                     <dd class="text-right number" id="difference"></dd>
                 </dl>
                 <dl>
-                    <dt>Downpayment Needed (25%)</dt>
+                    <dt>Downpayment Needed (25% of VA loan difference)</dt>
                     <dd class="text-right number" id="downpayment"></dd>
                 </dl>
                 <dl>
-                    <dt>Closing Costs (2.5%)</dt>
+                    <dt>Closing Cost (<span id="closingcostoutput"></span> of home price)</dt>
                     <dd class="text-right number" id="closingcost"></dd>
                 </dl>
                 <dl>
                     <dt>Total Due at Signing</dt>
-                    <dd class="text-right number" id="total"></dd>
+                    <dd class="text-right number"><b id="total"></b></dd>
                 </dl>
                 <hr>
+                <h4>Monthly Costs</h4><br>
                 <dl>
-                    <dt>Monthly Payment</dt>
-                    <dd class="text-right number" id="payment"></dd>
+                    <dt>Monthly Principal & Interest</dt>
+                    <dd class="text-right number"><span id="mortgage"></span></dd>
+                </dl>
+                <dl>
+                    <dt>Monthly Property Tax (1.17% / 12 months)</dt>
+                    <dd class="text-right number"><span id="taxamount"></span></dd>
+                </dl>
+                <dl>
+                    <dt>Homeowner's Insurance (0.35% / 12 months)</dt>
+                    <dd class="text-right number"><span id="insurance"></span></dd>
+                </dl>
+                <dl>
+                    <dt>Monthly Total</dt>
+                    <dd class="text-right number"><b id="payment"></b></dd>
                 </dl>
 
 
